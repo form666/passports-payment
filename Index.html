@@ -1,497 +1,255 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mesrak Travel Agency | Passport Services</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
-    <!-- Confetti JS for Success Animation -->
-    <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/confetti.min.js"></script>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .section {
-            padding: 60px 0;
-            text-align: center;
-            display: none; /* Hidden by default */
-            animation: fadeIn 1s ease-in;
-        }
-        .active {
-            display: block; /* Show active section */
-        }
-        .container-custom {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
-        h1 {
-            color: #009639;
-            margin-bottom: 20px;
-        }
-        h1 i {
-            margin-right: 10px;
-        }
-        .form-label {
-            font-weight: bold;
-            color: #333;
-            display: flex;
-            align-items: center;
-        }
-        .form-label i {
-            margin-right: 8px;
-        }
-        .form-control, .form-select {
-            border-radius: 8px;
-        }
-        .btn-primary {
-            background-color: #009639;
-            border: none;
-            padding: 12px;
-            font-size: 16px;
-        }
-        .btn-primary:hover {
-            background-color: #007d2f;
-        }
-        .payment-category {
-            margin-bottom: 20px;
-        }
-        .payment-category h4 {
-            color: #009639;
-            font-size: 18px;
-            margin-bottom: 10px;
-        }
-        .payment-methods {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-        }
-        .payment-card {
-            width: 120px;
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-align: center;
-            background-color: #fff;
-        }
-        .payment-card:hover {
-            border-color: #009639;
-        }
-        .payment-card.selected {
-            border-color: #009639;
-            background-color: #e6f3e6;
-        }
-        .payment-card img, .payment-card i {
-            width: 50px;
-            height: 50px;
-            margin-bottom: 5px;
-        }
-        .payment-card span {
-            display: block;
-            font-size: 14px;
-        }
-        .badge {
-            background-color: #ffcc00;
-            color: #333;
-            font-size: 12px;
-            padding: 5px 10px;
-            border-radius: 15px;
-            position: absolute;
-            top: -10px;
-            right: -10px;
-        }
-        .payment-instructions {
-            margin-top: 20px;
-            padding: 15px;
-            border: 2px solid #009639;
-            border-radius: 10px;
-            background-color: #f0f8f0;
-        }
-        .payment-instructions h5 {
-            color: #009639;
-            margin-bottom: 10px;
-            font-size: 18px;
-        }
-        .payment-instructions i {
-            font-size: 24px;
-            color: #009639;
-            margin-right: 10px;
-        }
-        .payment-instructions p {
-            margin: 0;
-            font-size: 16px;
-            color: #333;
-        }
-        .modal-content {
-            border-radius: 15px;
-        }
-        .modal-header {
-            background-color: #009639;
-            color: white;
-            border-bottom: none;
-        }
-        .modal-footer {
-            border-top: none;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .preview-img {
-            max-width: 250px;
-            margin-top: 15px;
-            border-radius: 10px;
-            border: 2px solid #009639;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        .speed-option {
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .speed-option:hover {
-            border-color: #009639;
-            background-color: rgba(0, 150, 57, 0.1);
-        }
-        .speed-option.selected {
-            border-color: #009639;
-            background-color: rgba(0, 150, 57, 0.2);
-            box-shadow: 0 0 10px rgba(0, 150, 57, 0.5);
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Willy Travel — Payment Confirmation</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0b6cf3;
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue";
+  background:var(--bg);padding:32px;display:flex;justify-content:center;min-height:100vh;color:#0f1724
+}
+.container{width:100%;max-width:1100px}
+/* Legal certified document */
+.legal-doc{display:flex;justify-content:center;margin-bottom:14px}
+.legal-doc img{max-width:250px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.1)}
+/* Notice */
+.notice{
+  font-weight:500;
+  background: #fff3f0;
+  border-left:4px solid #ff6b3d;
+  box-shadow:0 4px 12px rgba(0,0,0,0.05);
+  padding:12px 14px;
+  border-radius:10px;
+  margin-bottom:14px;
+  font-size:13px;
+}
+/* Top section */
+.top{display:flex;gap:16px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+.brand{
+  border: 1px solid #e6eefb;
+  background: linear-gradient(180deg,#ffffff,#f3f6fb);
+  padding:16px;border-radius:12px;display:flex;gap:12px;align-items:center;box-shadow:0 12px 36px rgba(12,20,40,0.06);flex:1
+}
+.logo{
+  width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,#0b6cf3,#5b8df6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px
+}
+h1{font-size:18px;margin-bottom:2px}
+.muted{color:var(--muted);font-size:13px}
+.flags img{
+  width:36px;height:24px;border-radius:4px;border:1px solid #e6eefb;
+  box-shadow:0 2px 6px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+.flags img:hover{transform: scale(1.1)}
+.methods{display:flex;gap:10px;align-items:center}
+.method{background:#fff;padding:8px 10px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.06);display:flex;gap:8px;align-items:center;border:1px solid #eef2ff}
+/* Grid layout */
+.grid{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
+@media (max-width:900px){ .grid{grid-template-columns:1fr} .methods{display:none} }
+/* Card */
+.card{background:var(--card);padding:20px;border-radius:14px;box-shadow:0 18px 44px rgba(2,6,23,0.06)}
+label{display:block;font-weight:600;color:#0f1724;margin-top:12px;font-size:14px}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #e6eefb;margin-top:8px;font-size:15px;background:#fff}
+.file-control{display:flex;gap:12px;align-items:center}
+.preview{margin-top:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.preview img{max-width:160px;max-height:120px;border-radius:10px;border:1px solid #e6eefb;object-fit:contain}
+.filemeta{color:var(--muted);font-size:13px}
+/* Signature pad */
+.sig-pad{margin-top:10px;border-radius:10px;background:linear-gradient(180deg,#fbfdff,#fff);border:1px solid #e6eefb;padding:8px}
+canvas{width:100%;height:160px;border-radius:8px;display:block;background:#fff}
+.controls{display:flex;gap:10px;margin-top:10px}
+.btn{padding:10px 14px;border-radius:10px;border:none;font-weight:600;cursor:pointer}
+.btn-ghost{background:#f8fafc;border:1px solid #e6eefb}
+.btn-primary{background:var(--primary);color:#fff;padding:12px 18px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(11,108,243,0.14)}
+/* Summary */
+.summary-card{background: linear-gradient(180deg,#fff,#f8fafc);padding:16px;border-radius:12px;border:1px solid #eef6ff;box-shadow:0 14px 36px rgba(11,108,243,0.06)}
+.summary-card h3{margin-bottom:8px}
+.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.small{font-size:13px;color:var(--muted)}
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.55);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:all .18s ease}
+.modal-backdrop.show{opacity:1;pointer-events:auto}
+.modal{background:#fff;padding:20px;border-radius:12px;max-width:480px;width:92%;text-align:center;box-shadow:0 24px 60px rgba(2,6,23,0.28)}
+.ok{background:var(--primary);color:#fff;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
+footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container-custom">
-            <a class="navbar-brand" href="#"><i class="fas fa-plane"></i> Mesrak Travel Agency</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#passport">Passport</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<div class="container">
+  <!-- Legal certified document -->
+  <div class="legal-doc">
+    <img src="assets/nete.png" alt="Legal Certified Document">
+  </div>
 
-    <!-- Login Section (Added from Second Code) -->
-    <div id="login" class="section active">
-        <div class="container-custom">
-            <h1><i class="fas fa-passport"></i> Mesrak Travel Agency</h1>
-            <p>Log in to Ethiopia’s premier passport service provider</p>
-            <form id="login-form">
-                <div class="mb-3">
-                    <label for="username" class="form-label"><i class="fas fa-user"></i> Username</label>
-                    <input type="text" class="form-control" id="username" required>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label"><i class="fas fa-lock"></i> Password</label>
-                    <input type="password" class="form-control" id="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100"><i class="fas fa-sign-in-alt"></i> Log In</button>
-            </form>
-        </div>
+  <div class="notice">
+    This page is our only official payment receive website. WILLY TRAVEL AGENCY is not responsible for any payments made outside of this official website.
+  </div>
+
+  <div class="top">
+    <div class="brand">
+      <div class="logo">WT</div>
+      <div>
+        <h1>Willy Travel Agency</h1>
+        <div class="muted">Secure • Verified • Professional</div>
+        <div class="muted">Bank: Ethiopian Commercial Bank</div>
+      </div>
     </div>
-
-    <!-- Passport Section (Enhanced) -->
-    <div id="passport" class="section">
-        <div class="container-custom">
-            <h1><i class="fas fa-passport"></i> Passport Application</h1>
-            <p>Complete your application with Ethiopia’s trusted service.</p>
-            <form id="application-form">
-                <div class="mb-3">
-                    <label for="full-name" class="form-label"><i class="fas fa-user"></i> Full Name</label>
-                    <input type="text" class="form-control" id="full-name" required>
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                    <input type="email" class="form-control" id="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label"><i class="fas fa-phone"></i> Phone Number</label>
-                    <input type="tel" class="form-control" id="phone" required>
-                </div>
-                <div class="mb-3">
-                    <label for="service-type" class="form-label"><i class="fas fa-concierge-bell"></i> Service Type</label>
-                    <select class="form-select" id="service-type" required>
-                        <option value="">Select Service</option>
-                        <option value="new">New Passport</option>
-                        <option value="renewal">Passport Renewal</option>
-                        <option value="replacement">Lost/Damaged Replacement</option>
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="id-photo" class="form-label"><i class="fas fa-id-card"></i> ID Photo</label>
-                    <input type="file" class="form-control" id="id-photo" accept="image/*" required>
-                    <img id="id-photo-preview" class="preview-img" style="display: none;" alt="ID Photo Preview">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label"><i class="fas fa-credit-card"></i> Payment Method</label>
-                    <div class="payment-category">
-                        <h4>State-Owned Banks</h4>
-                        <div class="payment-methods" id="state-banks"></div>
-                    </div>
-                    <div class="payment-category">
-                        <h4>Private Banks</h4>
-                        <div class="payment-methods" id="private-banks"></div>
-                    </div>
-                    <div class="payment-category">
-                        <h4>Mobile Money</h4>
-                        <div class="payment-methods" id="mobile-money"></div>
-                    </div>
-                    <input type="hidden" id="payment-method" required>
-                </div>
-                <div class="payment-instructions" id="payment-instructions" style="display: none;">
-                    <h5>Payment Instructions</h5>
-                    <div style="display: flex; align-items: center;">
-                        <i class="fas fa-university"></i>
-                        <p id="instruction-text"></p>
-                    </div>
-                </div>
-                <div class="mb-3">
-                    <label for="payment-receipt" class="form-label"><i class="fas fa-file-upload"></i> Upload Payment Receipt</label>
-                    <input type="file" class="form-control" id="payment-receipt" accept="image/*" required>
-                    <img id="payment-receipt-preview" class="preview-img" style="display: none;" alt="Payment Receipt Preview">
-                </div>
-                <div class="mb-3">
-                    <label class="form-label"><i class="fas fa-clock"></i> Processing Speed</label>
-                    <div class="speed-option" data-value="normal">
-                        <i class="fas fa-walking"></i> <strong>Normal</strong> - 10-15 business days 5,000 ETB
-                    </div>
-                    <div class="speed-option" data-value="fast">
-                        <i class="fas fa-rocket"></i> <strong>Fast</strong> - only 3-5 business days
-                        15,000 ETB
-                    </div>
-                    <input type="hidden" id="processing-speed" required>
-                </div>
-                <button type="submit" class="btn btn-primary w-100" id="submit-btn"><i class="fas fa-passport"></i> Submit Application</button>
-            </form>
-        </div>
+    <div class="flags">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg" alt="Ethiopia">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg" alt="Canada">
     </div>
-
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle"></i> Application Submitted</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Your passport application has been successfully submitted! We will contact you soon.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+    <div class="methods" aria-hidden="true">
+      <div class="method"><img src="https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG/brands/px/visa.png" alt="Visa" style="height:22px"></div>
+      <div class="method"><img src="https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG/brands/px/mastercard.png" alt="Mastercard" style="height:22px"></div>
+      <div class="method"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" style="height:20px"></div>
     </div>
+  </div>
 
-    <!-- Bootstrap JS and Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
-    <script>
-        // Payment Methods Data
-        const banks = [
-            { name: 'Commercial Bank of Ethiopia', logo: 'https://example.com/cbe-logo.png', type: 'state', recommended: true },
-      
-        ];
+  <div class="grid">
+    <section class="card">
+      <form id="paymentForm" novalidate>
+        <h2>Payment Confirmation</h2>
+        <label for="fullName">Full Name</label>
+        <input id="fullName" name="fullName" type="text" placeholder="Full name" required>
 
-        // Function to Create Payment Cards
-        function createPaymentCard(bank) {
-            const card = document.createElement('div');
-            card.className = 'payment-card';
-            card.innerHTML = `
-                <img src="${bank.logo}" alt="${bank.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <i class="fas fa-university" style="display: none;"></i>
-                <span>${bank.name}</span>
-            `;
-            if (bank.recommended) {
-                card.innerHTML += '<span class="badge">Recommended</span>';
-            }
-            card.addEventListener('click', () => {
-                document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('selected'));
-                card.classList.add('selected');
-                document.getElementById('payment-method').value = bank.name;
+        <label for="email">Email (optional)</label>
+        <input id="email" name="email" type="email" placeholder="name@example.com">
 
-                const instructionsDiv = document.getElementById('payment-instructions');
-                const instructionText = document.getElementById('instruction-text');
-                const icon = instructionsDiv.querySelector('i');
-                if (bank.type === 'mobile') {
-                    icon.className = 'fas fa-mobile-alt';
-                    instructionText.textContent = 'Please send payment to our Telebirr number: 0987654321';
-                } else {
-                    icon.className = 'fas fa-university';
-                    instructionText.textContent = 'Please transfer to our account at Commercial Bank of Ethiopia: Account Number 123456789';
-                }
-                instructionsDiv.style.display = 'block';
-            });
-            return card;
-        }
+        <label for="paymentPurpose">Payment Purpose</label>
+        <select id="paymentPurpose" required>
+          <option value="" disabled selected>Select purpose</option>
+          <option value="To Start Processes">To Start Processes</option>
+          <option value="To Acceptance Letter">To Acceptance Letter</option>
+          <option value="To Passport">To Passport</option>
+        </select>
 
-        // Function to Show Sections
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(section => section.classList.remove('active'));
-            document.getElementById(sectionId).classList.add('active');
-        }
+        <label for="method">Payment Method</label>
+        <select id="method" required>
+          <option value="Bank Transfer">Bank Transfer</option>
+          <option value="Mobile Money">Mobile Money (e.g., Telebirr, M-Pesa)</option>
+        </select>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const stateBanks = document.getElementById('state-banks');
-            const privateBanks = document.getElementById('private-banks');
-            const mobileMoney = document.getElementById('mobile-money');
+        <label for="amount">Amount Paid (USD)</label>
+        <input id="amount" type="number" min="0" step="0.01" placeholder="e.g., 150.00" required>
 
-            banks.forEach(bank => {
-                const card = createPaymentCard(bank);
-                if (bank.type === 'state') stateBanks.appendChild(card);
-                else if (bank.type === 'private') privateBanks.appendChild(card);
-                else if (bank.type === 'mobile') mobileMoney.appendChild(card);
-            });
+        <label for="receipt">Payment Screenshot or Receipt</label>
+        <div class="file-control">
+          <input id="receipt" type="file" accept="image/*,application/pdf" required>
+        </div>
+        <div id="filePreview" class="preview" style="display:none"></div>
 
-            // Login Form Submission
-            const loginForm = document.getElementById('login-form');
-            loginForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                // Simple validation (customize as needed)
-                if (username === 'user' && password === 'pass') {
-                    showSection('passport');
-                } else {
-                    alert('Invalid credentials');
-                }
-            });
+        <div class="signature-title" style="margin-top:10px;font-weight:600">Draw Signature</div>
+        <div class="sig-pad"><canvas id="signaturePad" aria-label="Signature pad"></canvas></div>
+        <div class="controls">
+          <button type="button" id="clearSig" class="btn btn-ghost">Clear</button>
+          <button type="button" id="downloadSig" class="btn btn-ghost">Download</button>
+          <div style="flex:1"></div>
+        </div>
 
-            // File Previews
-            document.getElementById('id-photo').addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const preview = document.getElementById('id-photo-preview');
-                    preview.src = URL.createObjectURL(file);
-                    preview.style.display = 'block';
-                }
-            });
+        <div class="submit-row">
+          <button id="submitBtn" class="btn-primary" type="submit">Submit securely</button>
+        </div>
+      </form>
+    </section>
 
-            document.getElementById('payment-receipt').addEventListener('change', (e) => {
-                const file = e.target.files[0];
-                if (file) {
-                    const preview = document.getElementById('payment-receipt-preview');
-                    preview.src = URL.createObjectURL(file);
-                    preview.style.display = 'block';
-                }
-            });
+    <aside class="summary-card">
+      <h3>Submission Summary</h3>
+      <div class="row"><div class="small">Name:</div><div id="sumName">—</div></div>
+      <div class="row"><div class="small">Purpose:</div><div id="sumPurpose">—</div></div>
+      <div class="row"><div class="small">Method:</div><div id="sumMethod">—</div></div>
+      <div class="row"><div class="small">Amount:</div><div id="sumAmount">—</div></div>
+      <div style="margin-top:12px" class="small">Accepted file types: JPG, PNG, PDF.</div>
+    </aside>
+  </div>
 
-            // Processing Speed Selection
-            const speedOptions = document.querySelectorAll('.speed-option');
-            const processingSpeed = document.getElementById('processing-speed');
-            speedOptions.forEach(option => {
-                option.addEventListener('click', () => {
-                    speedOptions.forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    processingSpeed.value = option.getAttribute('data-value');
-                });
-            });
+  <footer>© Willy Travel Agency — Secure processing</footer>
+</div>
 
-            // Application Form Submission
-            const form = document.getElementById('application-form');
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+<div id="modalBackdrop" class="modal-backdrop">
+  <div class="modal">
+    <h3 id="modalTitle">Submission received</h3>
+    <p id="modalMsg">Thank you. Our team will contact you within 24 hours.</p>
+    <button id="modalOk" class="ok">OK</button>
+  </div>
+</div>
 
-                const fullName = document.getElementById('full-name').value;
-                const email = document.getElementById('email').value;
-                const phone = document.getElementById('phone').value;
-                const serviceType = document.getElementById('service-type').value;
-                const paymentMethod = document.getElementById('payment-method').value;
-                const processingSpeedVal = document.getElementById('processing-speed').value;
-                const idPhotoFile = document.getElementById('id-photo').files[0];
-                const paymentReceiptFile = document.getElementById('payment-receipt').files[0];
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+<script>
+const canvas = document.getElementById('signaturePad');
+const signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgba(255,255,255,0)' });
+function resizeCanvas(){
+  const ratio = Math.max(window.devicePixelRatio||1,1);
+  canvas.width = canvas.offsetWidth*ratio;
+  canvas.height = 160*ratio;
+  canvas.getContext('2d').scale(ratio,ratio);
+  signaturePad.clear();
+}
+window.addEventListener('resize',resizeCanvas);
+resizeCanvas();
+document.getElementById('clearSig').addEventListener('click',()=>signaturePad.clear());
+document.getElementById('downloadSig').addEventListener('click',()=>{
+  if(signaturePad.isEmpty()) return alert('Signature is empty.');
+  const a=document.createElement('a'); a.href=signaturePad.toDataURL('image/png'); a.download='signature.png'; a.click();
+});
 
-                if (!processingSpeedVal) {
-                    alert('Please select a processing speed');
-                    return;
-                }
+// Form and preview
+const form=document.getElementById('paymentForm');
+const receiptInput=document.getElementById('receipt');
+const filePreview=document.getElementById('filePreview');
+const sumName=document.getElementById('sumName');
+const sumPurpose=document.getElementById('sumPurpose');
+const sumMethod=document.getElementById('sumMethod');
+const sumAmount=document.getElementById('sumAmount');
+const modalBackdrop=document.getElementById('modalBackdrop');
+const modalOk=document.getElementById('modalOk');
 
-                const botToken = '7503029328:AAGVGuzxpN56xWfsxTd_wlhLvOnm8PESXII'; // Replace with your Telegram Bot Token
-                const chatId = '8155585808'; // Replace with your Telegram Chat ID
-                const message = `🌍 New Passport Application 🌍\n\n` +
-                                `👤 Full Name: ${fullName}\n` +
-                                `📧 Email: ${email}\n` +
-                                `📞 Phone: ${phone}\n` +
-                                `🛂 Service Type: ${serviceType}\n` +
-                                `💳 Payment Method: ${paymentMethod}\n` +
-                                `⏳ Processing Speed: ${processingSpeedVal === 'normal' ? 'Normal (10-15 days)' : 'Fast (3-5 days)'}\n\n` +
-                                `Verified by Mesrak Travel Agency`;
+function updateSummary(){
+  sumName.textContent=document.getElementById('fullName').value||'—';
+  sumPurpose.textContent=document.getElementById('paymentPurpose').value||'—';
+  sumMethod.textContent=document.getElementById('method').value||'—';
+  sumAmount.textContent=document.getElementById('amount').value?('$'+parseFloat(document.getElementById('amount').value).toFixed(2)):'—';
+}
+['fullName','paymentPurpose','method','amount'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',updateSummary);
+});
 
-                try {
-                    // Send text message
-                    await fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`)
-                        .then(res => res.json())
-                        .then(data => { if (!data.ok) throw new Error('Failed to send message'); });
+receiptInput.addEventListener('change',()=>{
+  filePreview.innerHTML=''; filePreview.style.display='none';
+  const f=receiptInput.files[0]; if(!f) return;
+  if(f.type.startsWith('image/')){
+    const img=document.createElement('img'); img.src=URL.createObjectURL(f); img.onload=()=>URL.revokeObjectURL(img.src);
+    filePreview.appendChild(img);
+  } else {
+    const meta=document.createElement('div'); meta.className='filemeta';
+    meta.innerHTML='<strong>Uploaded file:</strong><br>'+f.name+' ('+Math.round(f.size/1024)+' KB)';
+    filePreview.appendChild(meta);
+  }
+  filePreview.style.display='flex';
+});
 
-                    // Send ID Photo
-                    if (idPhotoFile) {
-                        const idFormData = new FormData();
-                        idFormData.append('chat_id', chatId);
-                        idFormData.append('photo', idPhotoFile);
-                        idFormData.append('caption', `ID Photo for ${fullName}`);
-                        await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                            method: 'POST',
-                            body: idFormData
-                        })
-                        .then(res => res.json())
-                        .then(data => { if (!data.ok) throw new Error('Failed to send ID photo'); });
-                    }
+// Modal
+function showModal(){
+  modalBackdrop.classList.add('show');
+}
+modalOk.addEventListener('click',()=>modalBackdrop.classList.remove('show'));
 
-                    // Send Payment Receipt
-                    if (paymentReceiptFile) {
-                        const receiptFormData = new FormData();
-                        receiptFormData.append('chat_id', chatId);
-                        receiptFormData.append('photo', paymentReceiptFile);
-                        receiptFormData.append('caption', `Payment Receipt for ${fullName}`);
-                        await fetch(`https://api.telegram.org/bot${botToken}/sendPhoto`, {
-                            method: 'POST',
-                            body: receiptFormData
-                        })
-                        .then(res => res.json())
-                        .then(data => { if (!data.ok) throw new Error('Failed to send payment receipt'); });
-                    }
-
-                    // Show success modal
-                    const modal = new bootstrap.Modal(document.getElementById('successModal'));
-                    modal.show();
-
-                    // Confetti Celebration
-                    const confettiSettings = { target: document.body, max: 100, size: 1, animate: true, clock: 25 };
-                    const confetti = new ConfettiGenerator(confettiSettings);
-                    confetti.render();
-                    setTimeout(() => confetti.clear(), 3000);
-
-                    // Reset form
-                    form.reset();
-                    document.getElementById('payment-instructions').style.display = 'none';
-                    document.getElementById('id-photo-preview').style.display = 'none';
-                    document.getElementById('payment-receipt-preview').style.display = 'none';
-                    speedOptions.forEach(opt => opt.classList.remove('selected'));
-                } catch (error) {
-                    alert('Submission error: ' + error.message);
-                }
-            });
-        });
-    </script>
+// Dummy form submission
+form.addEventListener('submit',(e)=>{
+  e.preventDefault();
+  updateSummary();
+  showModal();
+  form.reset(); signaturePad.clear(); filePreview.innerHTML=''; filePreview.style.display='none';
+});
+</script>
 </body>
 </html>
