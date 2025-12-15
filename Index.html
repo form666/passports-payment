@@ -1,255 +1,442 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Willy Travel — Payment Confirmation</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Willy Travel Agency | Passport Biometric Form</title>
 <style>
 :root{
-  --primary:#0b6cf3;
-  --bg:#f5f7fb;
-  --card:#ffffff;
-  --muted:#6b7280;
-  --radius:14px;
+  --primary:#0a3d62;
+  --secondary:#1e6fb8;
+  --accent:#2e7d32;
+  --danger:#c62828;
+  --bg:#f2f6fb;
+  --scan:#00e5ff;
+  --dark:#0a3d62;
 }
-*{box-sizing:border-box;margin:0;padding:0}
+
 body{
-  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue";
-  background:var(--bg);padding:32px;display:flex;justify-content:center;min-height:100vh;color:#0f1724
+  margin:0;
+  font-family:"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:#222;
 }
-.container{width:100%;max-width:1100px}
-/* Legal certified document */
-.legal-doc{display:flex;justify-content:center;margin-bottom:14px}
-.legal-doc img{max-width:250px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.1)}
-/* Notice */
-.notice{
-  font-weight:500;
-  background: #fff3f0;
-  border-left:4px solid #ff6b3d;
-  box-shadow:0 4px 12px rgba(0,0,0,0.05);
-  padding:12px 14px;
-  border-radius:10px;
-  margin-bottom:14px;
-  font-size:13px;
+
+/* ===== HEADER ===== */
+.header{
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:#fff;
+  padding:24px 16px;
+  text-align:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.25);
 }
-/* Top section */
-.top{display:flex;gap:16px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
-.brand{
-  border: 1px solid #e6eefb;
-  background: linear-gradient(180deg,#ffffff,#f3f6fb);
-  padding:16px;border-radius:12px;display:flex;gap:12px;align-items:center;box-shadow:0 12px 36px rgba(12,20,40,0.06);flex:1
+
+.header h1{
+  margin:6px 0 4px;
+  font-size:28px;
+  letter-spacing:.5px;
 }
-.logo{
-  width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,#0b6cf3,#5b8df6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:22px
+
+.header p{
+  margin:0;
+  font-size:14px;
+  opacity:.95;
 }
-h1{font-size:18px;margin-bottom:2px}
-.muted{color:var(--muted);font-size:13px}
+
+.flags{
+  margin-top:12px;
+}
 .flags img{
-  width:36px;height:24px;border-radius:4px;border:1px solid #e6eefb;
-  box-shadow:0 2px 6px rgba(0,0,0,0.15);
-  transition: transform 0.2s;
+  width:64px;
+  margin:0 10px;
+  border-radius:6px;
+  box-shadow:0 3px 8px rgba(0,0,0,.3);
 }
-.flags img:hover{transform: scale(1.1)}
-.methods{display:flex;gap:10px;align-items:center}
-.method{background:#fff;padding:8px 10px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.06);display:flex;gap:8px;align-items:center;border:1px solid #eef2ff}
-/* Grid layout */
-.grid{display:grid;grid-template-columns:1fr 360px;gap:20px;align-items:start}
-@media (max-width:900px){ .grid{grid-template-columns:1fr} .methods{display:none} }
-/* Card */
-.card{background:var(--card);padding:20px;border-radius:14px;box-shadow:0 18px 44px rgba(2,6,23,0.06)}
-label{display:block;font-weight:600;color:#0f1724;margin-top:12px;font-size:14px}
-input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #e6eefb;margin-top:8px;font-size:15px;background:#fff}
-.file-control{display:flex;gap:12px;align-items:center}
-.preview{margin-top:12px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.preview img{max-width:160px;max-height:120px;border-radius:10px;border:1px solid #e6eefb;object-fit:contain}
-.filemeta{color:var(--muted);font-size:13px}
-/* Signature pad */
-.sig-pad{margin-top:10px;border-radius:10px;background:linear-gradient(180deg,#fbfdff,#fff);border:1px solid #e6eefb;padding:8px}
-canvas{width:100%;height:160px;border-radius:8px;display:block;background:#fff}
-.controls{display:flex;gap:10px;margin-top:10px}
-.btn{padding:10px 14px;border-radius:10px;border:none;font-weight:600;cursor:pointer}
-.btn-ghost{background:#f8fafc;border:1px solid #e6eefb}
-.btn-primary{background:var(--primary);color:#fff;padding:12px 18px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(11,108,243,0.14)}
-/* Summary */
-.summary-card{background: linear-gradient(180deg,#fff,#f8fafc);padding:16px;border-radius:12px;border:1px solid #eef6ff;box-shadow:0 14px 36px rgba(11,108,243,0.06)}
-.summary-card h3{margin-bottom:8px}
-.row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.small{font-size:13px;color:var(--muted)}
-/* Modal */
-.modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.55);display:flex;align-items:center;justify-content:center;z-index:60;opacity:0;pointer-events:none;transition:all .18s ease}
-.modal-backdrop.show{opacity:1;pointer-events:auto}
-.modal{background:#fff;padding:20px;border-radius:12px;max-width:480px;width:92%;text-align:center;box-shadow:0 24px 60px rgba(2,6,23,0.28)}
-.ok{background:var(--primary);color:#fff;padding:10px 14px;border-radius:10px;border:none;font-weight:700;cursor:pointer}
-footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
+
+/* ===== CONTAINER ===== */
+.container{
+  max-width:950px;
+  margin:30px auto;
+  padding:0 16px;
+}
+
+/* ===== CARD ===== */
+.card{
+  background:#fff;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.12);
+  padding:30px 34px;
+}
+
+.section-title{
+  text-align:center;
+  color:var(--primary);
+  margin-bottom:6px;
+}
+
+.section-sub{
+  text-align:center;
+  font-size:14px;
+  color:#555;
+  margin-bottom:24px;
+}
+
+/* ===== FORM ===== */
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
+
+label{
+  font-weight:600;
+  font-size:14px;
+}
+
+input, select{
+  width:100%;
+  padding:12px;
+  font-size:15px;
+  border-radius:10px;
+  border:1.6px solid #cfd8e3;
+  margin-top:6px;
+}
+
+input:focus, select:focus{
+  outline:none;
+  border-color:var(--secondary);
+}
+
+/* ===== FINGERPRINT ===== */
+.finger-container{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  flex-wrap:wrap;
+  margin:26px 0;
+}
+
+.finger{
+  width:130px;
+  height:170px;
+  background:#0b2540;
+  border-radius:70px 70px 90px 90px;
+  position:relative;
+  cursor:pointer;
+  box-shadow:
+    inset 0 0 30px rgba(0,0,0,.6),
+    0 12px 25px rgba(0,0,0,.35);
+  transition:.3s;
+}
+
+.finger:hover{transform:scale(1.05)}
+
+.finger::before{
+  content:"";
+  position:absolute;
+  inset:12px;
+  border-radius:60px;
+  background:
+    repeating-radial-gradient(
+      circle at 50% 35%,
+      rgba(0,229,255,.35) 0 1px,
+      rgba(0,229,255,.08) 1px 5px
+    ),
+    repeating-radial-gradient(
+      circle at 50% 60%,
+      rgba(0,229,255,.25) 0 1px,
+      transparent 1px 6px
+    );
+  opacity:.45;
+}
+
+.finger::after{
+  content:"";
+  position:absolute;
+  width:60px;
+  height:60px;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:
+    repeating-radial-gradient(
+      circle,
+      rgba(0,229,255,.45) 0 1px,
+      transparent 1px 4px
+    );
+  opacity:.6;
+}
+
+.scan-line{
+  position:absolute;
+  left:0;
+  width:100%;
+  height:4px;
+  background:linear-gradient(90deg,transparent,var(--scan),transparent);
+  box-shadow:0 0 15px var(--scan);
+  top:-10px;
+  opacity:0;
+}
+
+.finger.scanning{
+  box-shadow:
+    inset 0 0 40px var(--scan),
+    0 0 35px var(--scan);
+}
+
+.finger.scanning .scan-line{
+  opacity:1;
+  animation:scan 1.6s linear infinite;
+}
+
+@keyframes scan{
+  from{top:-10px}
+  to{top:100%}
+}
+
+.finger.done{
+  background:#143d2a;
+}
+
+.finger.done::before,
+.finger.done::after{
+  background:
+    repeating-radial-gradient(
+      circle,
+      rgba(180,255,200,.6) 0 1px,
+      transparent 1px 5px
+    );
+}
+
+.label{
+  text-align:center;
+  margin-top:8px;
+  font-weight:600;
+  color:var(--dark);
+}
+
+/* ===== SIGNATURE ===== */
+canvas{
+  width:100%;
+  height:180px;
+  border-radius:12px;
+  border:2px solid #cfd8e3;
+  margin-top:14px;
+  cursor:crosshair;
+  touch-action:none;
+}
+
+.center{
+  text-align:center;
+}
+
+/* ===== BUTTONS ===== */
+button{
+  padding:14px 36px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  margin:6px;
+  transition:.25s;
+}
+
+.submit{background:var(--accent);color:#fff}
+.submit:hover{background:#256a28}
+
+.reset{background:var(--danger);color:#fff}
+.reset:hover{background:#9a1c1c}
+
+/* ===== FOOTER ===== */
+.footer{
+  text-align:center;
+  font-size:13px;
+  color:#555;
+  margin:30px 0 20px;
+}
 </style>
 </head>
 <body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>WILLY TRAVEL AGENCY</h1>
+  <p>Passport & Travel Document Processing</p>
+  <div class="flags">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg">
+    <img src="https://upload.wikimedia.org/wikipedia/en/c/cf/Flag_of_Canada.svg">
+  </div>
+</div>
+
 <div class="container">
-  <!-- Legal certified document -->
-  <div class="legal-doc">
-    <img src="assets/nete.png" alt="Legal Certified Document">
+<div class="card">
+
+<h2 class="section-title">Passport Application & Biometric Form</h2>
+<p class="section-sub">
+Fill in the details as per your ID or previous passport. Complete all biometric scans and signature.
+</p>
+
+<!-- BASIC PASSPORT INFO -->
+<div class="form-grid">
+  <div>
+    <label>Full Name</label>
+    <input id="name" placeholder="Full legal name">
   </div>
 
-  <div class="notice">
-    This page is our only official payment receive website. WILLY TRAVEL AGENCY is not responsible for any payments made outside of this official website.
+  <div>
+    <label>Gender</label>
+    <select>
+      <option>Male</option>
+      <option>Female</option>
+    </select>
   </div>
 
-  <div class="top">
-    <div class="brand">
-      <div class="logo">WT</div>
-      <div>
-        <h1>Willy Travel Agency</h1>
-        <div class="muted">Secure • Verified • Professional</div>
-        <div class="muted">Bank: Ethiopian Commercial Bank</div>
-      </div>
-    </div>
-    <div class="flags">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Flag_of_Ethiopia.svg" alt="Ethiopia">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Flag_of_Canada.svg" alt="Canada">
-    </div>
-    <div class="methods" aria-hidden="true">
-      <div class="method"><img src="https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG/brands/px/visa.png" alt="Visa" style="height:22px"></div>
-      <div class="method"><img src="https://cdn.jsdelivr.net/gh/encharm/Font-Awesome-SVG-PNG/brands/px/mastercard.png" alt="Mastercard" style="height:22px"></div>
-      <div class="method"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" style="height:20px"></div>
-    </div>
+  <div>
+    <label>Date of Birth</label>
+    <input type="date">
   </div>
 
-  <div class="grid">
-    <section class="card">
-      <form id="paymentForm" novalidate>
-        <h2>Payment Confirmation</h2>
-        <label for="fullName">Full Name</label>
-        <input id="fullName" name="fullName" type="text" placeholder="Full name" required>
-
-        <label for="email">Email (optional)</label>
-        <input id="email" name="email" type="email" placeholder="name@example.com">
-
-        <label for="paymentPurpose">Payment Purpose</label>
-        <select id="paymentPurpose" required>
-          <option value="" disabled selected>Select purpose</option>
-          <option value="To Start Processes">To Start Processes</option>
-          <option value="To Acceptance Letter">To Acceptance Letter</option>
-          <option value="To Passport">To Passport</option>
-        </select>
-
-        <label for="method">Payment Method</label>
-        <select id="method" required>
-          <option value="Bank Transfer">Bank Transfer</option>
-          <option value="Mobile Money">Mobile Money (e.g., Telebirr, M-Pesa)</option>
-        </select>
-
-        <label for="amount">Amount Paid (USD)</label>
-        <input id="amount" type="number" min="0" step="0.01" placeholder="e.g., 150.00" required>
-
-        <label for="receipt">Payment Screenshot or Receipt</label>
-        <div class="file-control">
-          <input id="receipt" type="file" accept="image/*,application/pdf" required>
-        </div>
-        <div id="filePreview" class="preview" style="display:none"></div>
-
-        <div class="signature-title" style="margin-top:10px;font-weight:600">Draw Signature</div>
-        <div class="sig-pad"><canvas id="signaturePad" aria-label="Signature pad"></canvas></div>
-        <div class="controls">
-          <button type="button" id="clearSig" class="btn btn-ghost">Clear</button>
-          <button type="button" id="downloadSig" class="btn btn-ghost">Download</button>
-          <div style="flex:1"></div>
-        </div>
-
-        <div class="submit-row">
-          <button id="submitBtn" class="btn-primary" type="submit">Submit securely</button>
-        </div>
-      </form>
-    </section>
-
-    <aside class="summary-card">
-      <h3>Submission Summary</h3>
-      <div class="row"><div class="small">Name:</div><div id="sumName">—</div></div>
-      <div class="row"><div class="small">Purpose:</div><div id="sumPurpose">—</div></div>
-      <div class="row"><div class="small">Method:</div><div id="sumMethod">—</div></div>
-      <div class="row"><div class="small">Amount:</div><div id="sumAmount">—</div></div>
-      <div style="margin-top:12px" class="small">Accepted file types: JPG, PNG, PDF.</div>
-    </aside>
+  <div>
+    <label>Nationality</label>
+    <input value="Ethiopian">
   </div>
 
-  <footer>© Willy Travel Agency — Secure processing</footer>
-</div>
+  <div>
+    <label>Passport Type</label>
+    <select>
+      <option>Ordinary Passport</option>
+      <option>Service Passport</option>
+    </select>
+  </div>
 
-<div id="modalBackdrop" class="modal-backdrop">
-  <div class="modal">
-    <h3 id="modalTitle">Submission received</h3>
-    <p id="modalMsg">Thank you. Our team will contact you within 24 hours.</p>
-    <button id="modalOk" class="ok">OK</button>
+  <div>
+    <label>Phone Number</label>
+    <input placeholder="+251">
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+<!-- FINGERPRINT -->
+<h2 class="section-title" style="margin-top:30px">Fingerprint Capture</h2>
+<div class="finger-container">
+  <div>
+    <div class="finger"><div class="scan-line"></div></div>
+    <div class="label">Thumb</div>
+  </div>
+  <div>
+    <div class="finger"><div class="scan-line"></div></div>
+    <div class="label">Index</div>
+  </div>
+  <div>
+    <div class="finger"><div class="scan-line"></div></div>
+    <div class="label">Middle</div>
+  </div>
+  <div>
+    <div class="finger"><div class="scan-line"></div></div>
+    <div class="label">Ring</div>
+  </div>
+  <div>
+    <div class="finger"><div class="scan-line"></div></div>
+    <div class="label">Little</div>
+  </div>
+</div>
+
+<!-- SIGNATURE -->
+<h2 class="section-title">Applicant Signature</h2>
+<canvas id="sign"></canvas>
+
+<div class="center">
+  <button class="reset" id="clear">Clear Signature</button>
+</div>
+
+<div class="center" style="margin-top:20px">
+  <button class="submit" id="submit">Submit Application</button>
+  <button class="reset" id="reset">Reset Form</button>
+</div>
+
+</div>
+</div>
+
+<div class="footer">
+© 2025 Willy Travel Agency | Ethiopia → Canada | Contact: +251987094121
+</div>
+
 <script>
-const canvas = document.getElementById('signaturePad');
-const signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgba(255,255,255,0)' });
-function resizeCanvas(){
-  const ratio = Math.max(window.devicePixelRatio||1,1);
-  canvas.width = canvas.offsetWidth*ratio;
-  canvas.height = 160*ratio;
-  canvas.getContext('2d').scale(ratio,ratio);
-  signaturePad.clear();
-}
-window.addEventListener('resize',resizeCanvas);
-resizeCanvas();
-document.getElementById('clearSig').addEventListener('click',()=>signaturePad.clear());
-document.getElementById('downloadSig').addEventListener('click',()=>{
-  if(signaturePad.isEmpty()) return alert('Signature is empty.');
-  const a=document.createElement('a'); a.href=signaturePad.toDataURL('image/png'); a.download='signature.png'; a.click();
-});
-
-// Form and preview
-const form=document.getElementById('paymentForm');
-const receiptInput=document.getElementById('receipt');
-const filePreview=document.getElementById('filePreview');
-const sumName=document.getElementById('sumName');
-const sumPurpose=document.getElementById('sumPurpose');
-const sumMethod=document.getElementById('sumMethod');
-const sumAmount=document.getElementById('sumAmount');
-const modalBackdrop=document.getElementById('modalBackdrop');
-const modalOk=document.getElementById('modalOk');
-
-function updateSummary(){
-  sumName.textContent=document.getElementById('fullName').value||'—';
-  sumPurpose.textContent=document.getElementById('paymentPurpose').value||'—';
-  sumMethod.textContent=document.getElementById('method').value||'—';
-  sumAmount.textContent=document.getElementById('amount').value?('$'+parseFloat(document.getElementById('amount').value).toFixed(2)):'—';
-}
-['fullName','paymentPurpose','method','amount'].forEach(id=>{
-  document.getElementById(id).addEventListener('input',updateSummary);
-});
-
-receiptInput.addEventListener('change',()=>{
-  filePreview.innerHTML=''; filePreview.style.display='none';
-  const f=receiptInput.files[0]; if(!f) return;
-  if(f.type.startsWith('image/')){
-    const img=document.createElement('img'); img.src=URL.createObjectURL(f); img.onload=()=>URL.revokeObjectURL(img.src);
-    filePreview.appendChild(img);
-  } else {
-    const meta=document.createElement('div'); meta.className='filemeta';
-    meta.innerHTML='<strong>Uploaded file:</strong><br>'+f.name+' ('+Math.round(f.size/1024)+' KB)';
-    filePreview.appendChild(meta);
+// Fingerprint scanning
+document.querySelectorAll('.finger').forEach(f=>{
+  f.onclick=()=>{
+    if(f.classList.contains('done')) return;
+    f.classList.add('scanning');
+    setTimeout(()=>{
+      f.classList.remove('scanning');
+      f.classList.add('done');
+    },1800);
   }
-  filePreview.style.display='flex';
 });
 
-// Modal
-function showModal(){
-  modalBackdrop.classList.add('show');
+// Signature pad (active & mobile-friendly)
+const c = document.getElementById("sign");
+const ctx = c.getContext("2d");
+let drawing = false;
+
+// Set canvas width/height dynamically
+function resizeCanvas(){
+  c.width = c.offsetWidth;
+  c.height = c.offsetHeight;
 }
-modalOk.addEventListener('click',()=>modalBackdrop.classList.remove('show'));
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-// Dummy form submission
-form.addEventListener('submit',(e)=>{
+// Get pointer position
+function getPos(e){
+  const rect = c.getBoundingClientRect();
+  if(e.touches){
+    return {x:e.touches[0].clientX - rect.left, y:e.touches[0].clientY - rect.top};
+  }else{
+    return {x:e.clientX - rect.left, y:e.clientY - rect.top};
+  }
+}
+
+function startDraw(e){
   e.preventDefault();
-  updateSummary();
-  showModal();
-  form.reset(); signaturePad.clear(); filePreview.innerHTML=''; filePreview.style.display='none';
-});
+  drawing = true;
+  const pos = getPos(e);
+  ctx.beginPath();
+  ctx.moveTo(pos.x,pos.y);
+}
+function draw(e){
+  if(!drawing) return;
+  e.preventDefault();
+  const pos = getPos(e);
+  ctx.lineTo(pos.x,pos.y);
+  ctx.strokeStyle="#0a3d62";
+  ctx.lineWidth=3;
+  ctx.lineCap="round";
+  ctx.lineJoin="round";
+  ctx.stroke();
+}
+function stopDraw(e){drawing=false;}
+
+c.addEventListener("mousedown", startDraw);
+c.addEventListener("mousemove", draw);
+c.addEventListener("mouseup", stopDraw);
+c.addEventListener("mouseleave", stopDraw);
+c.addEventListener("touchstart", startDraw);
+c.addEventListener("touchmove", draw);
+c.addEventListener("touchend", stopDraw);
+c.addEventListener("touchcancel", stopDraw);
+
+// Clear signature
+document.getElementById("clear").onclick = ()=>ctx.clearRect(0,0,c.width,c.height);
+
+// Reset form
+document.getElementById("reset").onclick = ()=>location.reload();
+
+// Submit form
+document.getElementById("submit").onclick = ()=>{
+  alert("Application submitted successfully.\nWilly Travel Agency will contact you shortly.");
+};
 </script>
 </body>
 </html>
